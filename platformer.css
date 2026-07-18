@@ -46,3 +46,77 @@ h1 {
     width: 900px;
     max-width: 100%;
 }
+
+canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.badge {
+    position: absolute;
+    top: 10px;
+    background: rgba(0,0,0,0.4);
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.badge-left {
+    left: 12px;
+}
+
+.badge-right {
+    right: 12px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10,10,14,0.65);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.overlay.hidden {
+    display: none;
+}
+
+.overlay h2 {
+    margin: 0 0 8px 0;
+    font-size: 30px;
+}
+
+.overlay .small {
+    font-size: 13px;
+    opacity: 0.65;
+}
+
+.overlay button {
+    margin-top: 15px;
+    paDding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    background: white;
+    color: #111;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+#instructions {
+    margin-top: 10px;
+    font-size: 13px;
+    opacity: 0.6;
+    text-align: center;
+    max-width: 700px;
+}
