@@ -4,9 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>One Button Platformer</title>
+    <link rel="stylesheet" href="platformer.css">
 </head>
 
 <body>
+    <h1>One-Button Platformer</h1>
+    <p id="description">
+        An endless runner controlled with ONE KEY. Your character auto-runs forward. Tap to jump, and tap again in the air for double jump. Each flag is a checkpoint. If you die, you restart from the beginning of your current level, not the whole game. We also have different themes :D.
+    </p>
+
+    <div id="themeButtons"></div>
+
+    <div id="gameWrapper">
+        <canvas id="gameCanvas" width="900" height="500"></canvas>
+
+        <div id="scoreDisplay" class="badge badge-left">0m</div>
+        <div id="levelDisplay" class="badge badge-right">Level 1</div>
+
+        <div id="idleOverlay" class="overlay">
+            <div>
+                <h2>Ready?</h2>
+                <p>Click, tap, or press Space to start</p>
+            </div>
+        </div>
+
+        <div id="deadOverlay" class="overlay hidden">
+            <div>
+                <h2>Ouch, try again!</h2>
+                <p>Distance: <span id="deadDistance"></span>m</p>
+                <p class="small">You'll restart from the beginning of Level <span id="deadCheckpoint">1</span></p>
+                <button id="retryButton">Retry</button>
+            </div>
+        </div>
+
+        <div id="winOverlay" class="overlay hidden">
+            <div>
+                <h2>All 8 levels cleared!</h2>
+                <p>Distance: <span id="winDistance">0</span>m</p>
+                <button id="playAgainButton">Play again?</button>
+            </div>
+        </div>
+    </div>
+
+    <p id="instructions">
+        Tap (mouse/touch/spacebar) to jump. Moving platforms carry you. Spikes and pits are instant death. Each level is harder than the last >:)
+    </p>
+
+    <script src="platformer.js"></script>
 </body>
 
 </html>
