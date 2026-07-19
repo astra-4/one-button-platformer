@@ -150,4 +150,47 @@ function advanceLevel() {
         winGame();
         return;
     }
+    currentLevel += 1;
+    checkpointLevel = currentLevel;
+    level = buildLevel(currentLevel, level.flagX);
+    document.getElementById("levelDisplay").textContent = "Level " + currentLevel;
+}
+
+//jump
+function handlePress() {
+    if (phase === "idle") {
+        phase = "playing";
+        updateOverlays();
+        return;
+    }
+
+    if (phase !== "playing") {
+        return;
+    }
+
+    if (player.onGround) {
+        player.velocityY = JUMP_SPEED;
+        player.onGround = false;
+        player.standingOnPlatform = null;
+        jumpsUsed = 1;
+        jumpSquashTimer = SQUASH_DURATION;
+    } else if (jumpsUsed < 2) {
+        player.velocityY = DOUBLE_JUMP_SPEED;
+        jumpsUsed = 2;
+        jumpSquashTimer = SQUASH_DURATION;
+    }
+}
+
+canvas.addEventListener("poitnerdown", handlePress);
+
+document.addEventListener("keydown", function (event) {
+    if (event.code === "Space") {
+        event.preventDefault();
+        handlePress();
+    }
+});
+
+//shine uwu
+function killPlayer() {
+    
 }
