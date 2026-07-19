@@ -285,5 +285,10 @@ themes.forEach(function (theme,index) {
         const allButtons = themeButtonsContainer.querySelectorAll(".themeButton");
         allButtons.forEach(function (b) { b.classList.remove("active"); });
         button.classList.add("active");
-    })
+
+        checkpointLevel = 1;
+        resetGame(1);
+        phase = "idle";
+        updateOverlays();
+    });
 })
