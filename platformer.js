@@ -291,4 +291,32 @@ themes.forEach(function (theme,index) {
         phase = "idle";
         updateOverlays();
     });
-})
+
+    themeButtonsContainer.appendChild(button);
+});
+
+
+//brrrr skrrt skrrt
+function updateGame(deltaSeconds, timeSeconds) {
+    const p = player;
+    const previousY = p.y;
+
+    let platformDelaX = 0;
+    let platformDeltaY = 0;
+
+    if (p.standingOnPlatform) {
+        const before = getPlaformPosition(p.standingOnPlatform, timeSeconds - deltaSeconds);
+        const after = getPlaformPosition(p.standingOnPlatform, timeSeconds);
+        platformDeltaY = after.x - before.x;
+        platformDeltaY = after.y - before.y;
+    }
+}
+
+const forwardSpeed = BASE_SPEED + Math.min(p.x * 0.02, 90);
+p.x += forwardSPeed * deltaSeconds + platformDeltaX;
+
+p.velocityY += GRAVITY * deltaSeconds;
+p.y += p.velocityY * deltaSeconds + (p.onGround ? platformDeltaY : 0);
+
+
+//check if landed
