@@ -1,8 +1,52 @@
 const themes = [
     {
-        name: "Minimal"
+        name: "Minimal",
+        background: "#f2efe9",
+        ground: "#3f8f8f",
+        groundTop: "#59b0b0",
+        platform: "#e0a339",
+        spike: "#c1432b",
+        player: "e2823f",
+        flag: "#2b2b2b",
+        grid: "rgba(0,0,0,0.05)"
+    },
+    {
+        name: "Arcade Classic",
+        background: "#0c0c14",
+        ground: "#3ddc84",
+        groundTop: "#9dfcc0",
+        platform: "#ffd23d",
+        spike: "#ff4d4d",
+        player: "#ffd23d",
+        flag: "#3ddc84",
+        grid: "rgba(255,255,255,0.06)",
+        blockSprite: true
+    },
+    {
+        name: "Neon",
+        background: "#1a0b2e",
+        ground: "#ff2fd0",
+        groundTop: "#ff8bf0",
+        platform: "#2fe6ff",
+        spike: "#ff2f5e",
+        player: "#2fe6ff",
+        flag: "#ff2fd0",
+        grid: "rgba(255,47,208,0.18)",
+        glow: true
+    },
+    {
+        name: "Storybook",
+        background: "#bfe6ff",
+        ground: "#7bc96f",
+        groundTop: "#9fe58f",
+        platform: "#ffb84d",
+        spike: "#e85d5d",
+        player: "#ff9ecb",
+        flag: "#7a5cff",
+        grid: "rgba(255,255,255,0.4)",
+        cartoon: true
     }
-]
+];
 
 let currentThemeIndex = 0;
 
