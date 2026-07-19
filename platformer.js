@@ -272,3 +272,18 @@ function updateOverlays() {
 }
 
 //themes swicher outer
+const themeButtonsContainer = document.getElementById("themeButtons");
+
+themes.forEach(function (theme,index) {
+    const button = document.createElement("button");
+    button.classname = "themeButton" + (index === currentThemeIndex ? " active" : "");
+    button.textContent = theme.name;
+
+    button.addEventListener("click", function () {
+        currentThemeIndex = index;
+
+        const allButtons = themeButtonsContainer.querySelectorAll(".themeButton");
+        allButtons.forEach(function (b) { b.classList.remove("active"); });
+        button.classList.add("active");
+    })
+})
