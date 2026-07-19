@@ -88,5 +88,66 @@ function buildLevel(levelNumber, startX) {
 
         const gapStartX = cursor + gapLength;
         const gapEndX = gapStartX + groundLength;
+        grounds.push({ x1: gapStartX, x2: gapEndX, y: GROUND_Y});
+
+        //spikyy
+        if (!isBridgedGap && random() < spikeChance && groundLength > 220) {
+            const spikeWidth = 34;
+            const landingBuffer = 110;
+            const maxSpikeX = gapEndX - landingBuffer - spikeWidth / 2;
+            const minSpikeX = gapStartX + landingBuffer + spikeWidth / 2;
+
+            if (maxSpikeX > minSpikeX) {
+                const spikeX = minSpikeX + random() * (maxSpikeX - minSpikeX);
+                spikes.push({x: spikeX, width: spikeWidth, y: GROUND_Y});
+            }
+        }
+
+        cursor = gapEndX;
+    }
+
+    const flagX = cursor + 120;
+    grounds.push({x1: cursor, x2: flagX + 260, y: GROUND_Y})
+
+    return { grounds,platforms,spikes,flagX};
+}
+
+function getPlaformPosition(platform, t) {
+    let x = platform.baseX;
+    let y = platform.baseY;
+
+    if (platform.axis === "y") {
+        y = platform.baseY + Math.sin(t * platform.speed + platform.phase) * platform.amplitude;
+    } else {
+        x = platform. baseX + Math.sin(t * platform.speed + platform. phase) * platform.amplitude;
+    }
+
+    return {x:x, y:y, width: platform.width,height: platform.height};
+}
+
+
+//respawn type shi
+function resetGame(startLevel) {
+    const levelToStart = startLevel || 1;
+    currentLevel = levelToStart;
+    level = buildLevel(levelToStart, 0);
+    player = {
+        x: 60;
+        y: GROUND_Y - PLAYER_RADIUS,
+        velocityY: 0;
+        onGround: true;
+        standingOnPlatform: null
+    };
+    jumpsUsed = 0;
+    jumpSquashTimer = 0;
+    startTime = performance.now();
+    document.getElementById("leveldisplay").textContent = "Level " + levelToStart;
+}
+
+//checkpoint this
+function advanceLevel() {
+    if (currentLevel >= MAX_LEVEL) {
+        winGame();
+        return;
     }
 }
