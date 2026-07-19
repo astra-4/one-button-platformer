@@ -192,5 +192,39 @@ document.addEventListener("keydown", function (event) {
 
 //shine uwu
 function killPlayer() {
-    
+    if (phase !== "Playing") return;
+    finalDistance = Math.floor(player.x / 20);
+    phase = "dead";
+    document.getElementById("deadDistance").textContent = finalDistance;
+    document.getElementById("deadCheckpoint").textContent = checkpointLevel;
+    updateOverlays();
 }
+
+function winGame() {
+    if (phase !== "playing") return;
+    finalDistance = Math.floor(player.x / 20);
+    phase = "win";
+    document.getElementById("winDisdance").textContent = finalDistance;
+    updateOverlays();
+}
+
+document.getElementById("retryButton").addEventListener("click", function () {
+    resetGame(checkpointLevel);
+    phase = "idle";
+    updateOverlays();
+});
+
+document.getElementById("playAgainButton").addEventListener("click", function () {
+    checkpointLevel = 1;
+    resetGame(1);
+    phase = "idle";
+    updateOverlays();
+});
+
+function updateOverlays() {
+    document.getElementById("idleOverlay").classList.toggle("hidden", phase !== "idle");
+    document.getElementById("deadOverlay").classList.toggle("hidden", phase !== "dead");
+    document.getElementById("winOverlay").classList.toggle("hidden", phase !== "win");
+}
+
+//themes swicher outer
