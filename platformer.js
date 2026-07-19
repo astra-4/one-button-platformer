@@ -1,8 +1,8 @@
-const themes = {
+const themes = [
     {
         name: "Minimal"
     }
-};
+]
 
 let currentThemeIndex = 0;
 
@@ -132,10 +132,10 @@ function resetGame(startLevel) {
     currentLevel = levelToStart;
     level = buildLevel(levelToStart, 0);
     player = {
-        x: 60;
+        x: 60,
         y: GROUND_Y - PLAYER_RADIUS,
-        velocityY: 0;
-        onGround: true;
+        velocityY: 0,
+        onGround: true,
         standingOnPlatform: null
     };
     jumpsUsed = 0;
