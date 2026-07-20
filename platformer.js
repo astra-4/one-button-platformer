@@ -404,4 +404,22 @@ function drawGame(timeSeconds) {
 
     //grid
     ctx.save();
+    ctx.strokeStyle = theme.grid;
+    ctx.lineWidth = 1;
+    const gridOffset = -(-cameraX * 0.3) % 60;
+    for(let gx = gridOffset; gx < CANVAS_WIDTH; gx += 60) {
+        ctx.beginPath();
+        ctx.moveTo(gx,0);
+        ctx.lineTo(gx, CANVAS_HEIGHT);
+        ctx.stroke();
+    }
+    for (let gy=40; gy < CANVAS_HEIGHT; gy += 60) {
+        ctx.beginPath();
+        ctx.moveTo(0, gy);
+        ctx.lineTo(CANVAS_WIDTH, gy);
+        ctx.stroke();
+    }
+    ctx.restore();
+
+    //end gridding
 }
