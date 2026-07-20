@@ -156,7 +156,7 @@ function buildLevel(levelNumber, startX) {
     return { grounds,platforms,spikes,flagX};
 }
 
-function getPlaformPosition(platform, t) {
+function getPlatformPosition(platform, t) {
     let x = platform.baseX;
     let y = platform.baseY;
 
@@ -305,8 +305,8 @@ function updateGame(deltaSeconds, timeSeconds) {
     let platformDeltaY = 0;
 
     if (p.standingOnPlatform) {
-        const before = getPlaformPosition(p.standingOnPlatform, timeSeconds - deltaSeconds);
-        const after = getPlaformPosition(p.standingOnPlatform, timeSeconds);
+        const before = getPlatformPosition(p.standingOnPlatform, timeSeconds - deltaSeconds);
+        const after = getPlatformPosition(p.standingOnPlatform, timeSeconds);
         platformDeltaY = after.x - before.x;
         platformDeltaY = after.y - before.y;
     }
@@ -345,7 +345,7 @@ if (p.velocity >= 0) {
 
     if (!p.onGround) {
         for (const platform of level.platforms) {
-            const platPos = getPlaformPosition(platform, timeSeconds);
+            const platPos = getPlatformPosition(platform, timeSeconds);
 
             const overlapsHorizontally =
             p.x + PLAYER_RADIUS * 0.85 > platPos.x && p.x - PLAYER_RADIUS * 0.85 < platPos.x + platPos.width;
@@ -422,4 +422,60 @@ function drawGame(timeSeconds) {
     ctx.restore();
 
     //end gridding
+    ctx.save();
+    ctx.translate(-cameraX, 0);
+
+    //da floor
+    for (const ground of level.grounds) {
+        if (ground.x2 < cameraX - 20 || ground.x1 > cameraX + CANVAS_WIDTH + 20) continue;
+        ctx.fillStyle = theme.ground;
+        ctx.fillRect(ground.x1, ground.y, ground.x2 - ground.x1, CANVAS_HEIGHT - ground.y + 40);
+        ctx.fillStyle = theme.groundTop;
+        ctx.fillRect(ground.x1, ground.y, ground.x2 - ground.x1, 8);
+    }
+
+    //moving platforms
+    for (const platform of level.platforms) {
+        const pos = getPlatformPosition(platform,timeSeconds);
+        if (pos.x + pos.width < cameraX - 20 || pos.x > cameraX + CANVAS_WIDTH + 20) continue;
+
+        ctx.fillStyle = theme.platform;
+        if (theme.glow) {
+            ctx.shadowColor = theme.platform;
+            ctx.shadowBlur = 18;
+        }
+        ctx.fillRect(pos.x, pos.y, pos.width, pos.height);
+        ctx.shadowBlur = 0;
+    }
+
+    //drawing spikes
+    for (const spike of level.spikes) {
+        if (spike.x < cameraX - 30 || spike.x > cameraX + CANVAS_WIDTH + 30) continue;
+        ctx.fillStyle = theme.spike;
+
+        const numberOfTeeth = 3;
+        for (let i = 0; i < numberOfTeeth; i++) {
+            const toothX = spike.x - spike.width / 2 + (i * spike.width) / numberOfTeeth;
+            ctx.beginPath();
+            ctx.moveTo(toothX, spike.y);
+            ctx.lineTo(toothX + spike.width / numberOfTeeth / 2, spike.y - 26);
+            ctx.lineTo(toothX + spike.width / numberOfTeeth, spike.y);
+            ctx.closePath();
+            ctx.fill();
+        }
+    }
+
+    //flag
+    if (level.flagX > cameraX - 20 && level.flagX < cameraX + CANVAS_WIDTH + 20) {
+        ctx.fillStyle = theme.flag;
+        ctx.fillRect(level.flagX, GROUND_Y - 90, 4, 90);
+        ctx.beginPath();
+        ctx.moveTo(level.flagX + 4, GROUND_Y - 90);
+        ctx.lineTo(level.flagX + 40, GROUND_Y - 78);
+        ctx.lineTo(level.flagX + 4, GROUND_Y - 66);
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    
 }
