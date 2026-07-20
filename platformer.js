@@ -320,3 +320,56 @@ p.y += p.velocityY * deltaSeconds + (p.onGround ? platformDeltaY : 0);
 
 
 //check if landed
+p.onGround = false;
+p.standingOnPlatform = null;
+
+if (p.velocity >= 0) {
+    const bottomBefore = previousY + PLAYER_RADIUS;
+    const bottomNow = p.y + PLAYER_RADIUS;
+
+    for (const ground of level.grounds) {
+        const overlapsHorizontally = 
+        p.x + PLAYER_RADIUS * 0.85 > ground.x1 &&
+        p.x - PLAYER_RADIUS * 0.85 < ground.x2;
+
+        const crossedTheGroundLine =
+        (bottomBefore <= ground.y + 4 && bottomNow >= ground.y) || (bottomNow >= ground.y && bottomNow <= ground.y + 40);
+
+        if (overlapsHorizontally && crossedTheGroundLine) {
+            p.y = ground.y - PLAYER_RADIUS;
+            p.velocityY = 0;
+            p.onGround = true;
+            break;
+        }
+    }
+
+    if (!p.onGround) {
+        for (const platform of level.platform) {
+            const platPos = getPlaformPosition(platform, timeSeconds);
+
+            const overlapsHorizontally =
+            p.x + PLAYER_RADIUS * 0.85 > platPos.x && p.x - PLAYER_Radius * 0.85 < platPos.x + platPos.width;
+
+            const crossedThePlataformTop =
+            (bottomBefore <= platPos.y + 4 && bottomNow >= platPos.y) || (bottomNow >= platPos.y && bottomNow <= platPos.y + 40);
+
+            const platPos = getPlaformPosition(plaform, timeSeconds);
+
+            const overlapsHorizontally = p.x + PLAYER_RADIUS * 0.85 > platPos.x && p.x - PLAYER_RADIUS * 0.85 < platPos.x + platPos.width;
+
+            const crossedThePlataformTop = (bottomBefore <= platPos.y + 4 && bottomNow >= platPos.y) || (bottomNow >= platPos.y && bottomNow <= platPos.y + 40);
+
+            if (overlapsHorizontally && crossedThePlataformTop) {
+                p.y = platPos.y - PLAYER_RADIUS;
+                p.velocityY = 0;
+                p.onGround = true;
+                p.standingOnPlatform = platform;
+                break;
+            }
+        }
+    }
+}
+
+if (p.onGround) {
+    jumpsUsed = 0;
+}
