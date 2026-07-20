@@ -362,8 +362,35 @@ if (p.velocity >= 0) {
             }
         }
     }
-}
+    if (p.onGround) {
+        jumpsUsed = 0;
+    }
 
-if (p.onGround) {
-    jumpsUsed = 0;
+    //is crash?
+    for (const spike of level.spikes) {
+        const overlapsHorizontally = 
+        p.x + PLAYER_RADIUS * 0.5 > spike.x - spike.width / 2 &&
+        p.x - PLAYER_RADIUS * 0.5 < spike.x + spike.width / 2;
+
+        if (overlapsHorizontally && p.y + PLAYER_RADIUS > spike.y - 26) {
+            killPlayer();
+            break;
+        }
+    }
+
+    //kirby die
+    if (p.y - PLAYER_RADIUS > GROUND_Y + 260) {
+        killPlayer();
+    }
+
+    //checkpoint this
+    if (p.x > level.flagX) {
+        advanceLevel();
+    }
+
+    if (jumpSquashTimer > 0) {
+        jumpSquashTimer = Math.max(0, jumpSquashTimer - deltaSeconds);
+    }
+
+    document.getElementById("scoreDisplay").textContent = Math.floor(p.x / 20) + "m";
 }
