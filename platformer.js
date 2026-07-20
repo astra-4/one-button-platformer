@@ -394,3 +394,14 @@ if (p.velocity >= 0) {
 
     document.getElementById("scoreDisplay").textContent = Math.floor(p.x / 20) + "m";
 }
+
+//los visuales
+function drawGame(timeSeconds) {
+    const theme = themes[currentThemeIndex];
+    const cameraX = Math.max(0, player.x - 250);
+
+    ctx.clearRect(0,0,CANVAS_WIDTH, CANVAS_HEIGHT);
+
+    //grid
+    ctx.save();
+}
