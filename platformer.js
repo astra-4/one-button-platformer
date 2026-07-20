@@ -477,5 +477,63 @@ function drawGame(timeSeconds) {
         ctx.fill();
     }
 
-    
+    //el squishie
+    const squashProgress = jumpSquashTimer / SQUASH_DURATION;
+    const scaleY = 1 * (1 - squashProgress) + squashProgress * 1.35;
+    const scaleX = 1 * (1 - squashProgress) + squashProgress * 0.75;
+
+    ctx.save();
+    ctx.translate(player.x, player.y);
+    ctx.scale(scaleX, scaleY);
+
+    if(theme.glow) {
+        ctx.shadowColor = theme.player;
+        ctx.shadowBlur = 22;
+    }
+
+    ctx.fillStyle = theme.player;
+
+    if(theme.blockSprite) {
+        ctx.fillRect(-PLAYER_RADIUS, -PLAYER_RADIUS, PLAYER_RADIUS * 2, PLAYER_RADIUS * 2);
+        ctx.fillstyle = "#0c0c14";
+        ctx.fillRect(PLAYER_RADIUS * 0.15, -PLAYER_RADIUS * 0.4, 6, 6);
+    } else {
+        ctx.beginPath();
+        ctx.arc(0,0,PLAYER_RADIUS, 0 , Math.PI * 2);
+        ctx.fill();
+
+        if (theme.cartoon) {
+            ctx.fillStyle = "#33425a";
+            ctx.beginPath();
+            ctx.arc(6,-4,2.6,0,Math.PI *2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(-6,-4,2.6,0,Math.PI*2);
+            ctx.fill();
+        }
+    }
+    ctx.shadowBlur = 0;
+    ctx.restore();
+
+    ctx.restore();
 }
+
+//loop
+function gameLoop(now) {
+    const deltaSeconds = Math.min((now-lastFrameTime) / 1000, 0.032);
+    lastFrameTime = now;
+    const timeSeconds = (now-startTime) / 1000;
+
+    if (phase === "playing") {
+        updateGame(deltaSeconds, timeSeconds);
+    }
+
+    drawGame(timeSeconds);
+
+    requestAnimationFrame(gameLoop);
+}
+
+//start
+resetGame(1);
+lastFrameTime = performance.now();
+requestAnimationFrame(gameLoop);
