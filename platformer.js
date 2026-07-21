@@ -6,7 +6,7 @@ const themes = [
         groundTop: "#59b0b0",
         platform: "#e0a339",
         spike: "#c1432b",
-        player: "e2823f",
+        player: "#e2823f",
         flag: "#2b2b2b",
         grid: "rgba(0,0,0,0.05)"
     },
@@ -307,10 +307,9 @@ function updateGame(deltaSeconds, timeSeconds) {
     if (p.standingOnPlatform) {
         const before = getPlatformPosition(p.standingOnPlatform, timeSeconds - deltaSeconds);
         const after = getPlatformPosition(p.standingOnPlatform, timeSeconds);
-        platformDeltaY = after.x - before.x;
+        platformDeltaX = after.x - before.x;
         platformDeltaY = after.y - before.y;
     }
-}
 
 const forwardSpeed = BASE_SPEED + Math.min(p.x * 0.02, 90);
 p.x += forwardSpeed * deltaSeconds + platformDeltaX;
@@ -393,6 +392,7 @@ if (p.velocity >= 0) {
     }
 
     document.getElementById("scoreDisplay").textContent = Math.floor(p.x / 20) + "m";
+}
 }
 
 //los visuales
