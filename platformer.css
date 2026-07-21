@@ -54,7 +54,7 @@ canvas {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
     transition: .25s;
 }
@@ -65,14 +65,14 @@ canvas:hover{
 
 .badge {
     position: absolute;
-    top: 10px;
+    top: 12px;
     background: #2d3448;
-    padding: 6px 10px;
+    padding: 6px 12px;
     border-radius: 20px;
     border: 1px solid rgba(255,255,255,.1);
     color: #ffd966;
     font-weight: bold;
-    font-size: 10px;
+    font-size: 13px;
 }
 
 .badge-left {
@@ -103,7 +103,7 @@ canvas:hover{
 
 .overlay h2 {
     margin: 0 0 8px 0;
-    font-size: 30px;
+    font-size: 27px;
 }
 
 .overlay .small {
