@@ -2,6 +2,7 @@
 
 what up gang
 
+(platform.html became index.html)
 
 this is platformer that uses only one key to jump!
 
