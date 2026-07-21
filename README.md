@@ -22,3 +22,5 @@ made using js, css, and html. it's my first time separating the files instead of
 
 
 btw i only playtested until level 3 bc i have skill issues and i was running out of time :<
+
+update: no more dark or light mode bc i ran out of time and didn't find the bug by then :(
