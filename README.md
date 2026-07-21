@@ -18,3 +18,6 @@ spikes and drops are insta-kill.
 
 
 made using js, css, and html. it's my first time separating the files instead of having it all on one doc! :3
+
+
+btw i only playtested until level 3 bc i have skill issues and i was running out of time :<
