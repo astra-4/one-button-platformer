@@ -185,7 +185,7 @@ function resetGame(startLevel) {
     jumpsUsed = 0;
     jumpSquashTimer = 0;
     startTime = performance.now();
-    document.getElementById("leveldisplay").textContent = "Level " + levelToStart;
+    document.getElementById("levelDisplay").textContent = "Level " + levelToStart;
 }
 
 //checkpoint this
@@ -322,7 +322,7 @@ p.y += p.velocityY * deltaSeconds + (p.onGround ? platformDeltaY : 0);
 p.onGround = false;
 p.standingOnPlatform = null;
 
-if (p.velocity >= 0) {
+if (p.velocityY >= 0) {
     const bottomBefore = previousY + PLAYER_RADIUS;
     const bottomNow = p.y + PLAYER_RADIUS;
 
@@ -406,7 +406,7 @@ function drawGame(timeSeconds) {
     ctx.save();
     ctx.strokeStyle = theme.grid;
     ctx.lineWidth = 1;
-    const gridOffset = -(-cameraX * 0.3) % 60;
+    const gridOffset = -(cameraX * 0.3) % 60;
     for(let gx = gridOffset; gx < CANVAS_WIDTH; gx += 60) {
         ctx.beginPath();
         ctx.moveTo(gx,0);
@@ -495,7 +495,7 @@ function drawGame(timeSeconds) {
 
     if(theme.blockSprite) {
         ctx.fillRect(-PLAYER_RADIUS, -PLAYER_RADIUS, PLAYER_RADIUS * 2, PLAYER_RADIUS * 2);
-        ctx.fillstyle = "#0c0c14";
+        ctx.fillStyle = "#0c0c14";
         ctx.fillRect(PLAYER_RADIUS * 0.15, -PLAYER_RADIUS * 0.4, 6, 6);
     } else {
         ctx.beginPath();
